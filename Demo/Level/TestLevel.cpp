@@ -19,7 +19,7 @@ TestLevel::TestLevel()
 		{1, 1, 1, 1, 1, 1, 1, 1},
 	};
 
-	AddActor(new Player(Vector2(5, 3), Vector2(0, 1)));
+	AddActor(new Player(Vector2(5, 3), Vector2(0, 1), grid));
 }
 
 TestLevel::~TestLevel()
@@ -31,7 +31,7 @@ void TestLevel::Update(float deltaTime)
 	Super::Update(deltaTime);
 	
 	// 상태 변화가 있을 시
-	Renderer renderer = Renderer(grid, actors[0]->Position(), actors[0]->Direction(), 300, 100);
+	Renderer renderer = Renderer(grid, actors[0]->Position(), actors[0]->Direction(), 500, 250);
 	renderer.Raycasting();
 
 	// ESC 키로 종료.

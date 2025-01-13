@@ -5,6 +5,9 @@
 
 int main()
 {
+	//Memory leak check
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	Game game;
 	game.LoadLevel(new TestLevel());
 	game.Run();

@@ -2,6 +2,8 @@
 
 #include "Level/Level.h"
 
+class Renderer;
+
 class TestLevel : public Level
 {
 	// RTTI Àû¿ë.
@@ -15,4 +17,5 @@ public:
 
 private:
 	std::vector<std::vector<int>> grid;
+	Renderer* renderer;
 };

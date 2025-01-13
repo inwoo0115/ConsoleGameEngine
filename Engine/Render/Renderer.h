@@ -16,6 +16,10 @@ public:
 	void DrawLine(int i);
 	void DrawColor();
 
+	//setter
+	void SetPosition(const Vector2& newPosition);
+	void SetDirection(const Vector2& newDirection);
+
 private:
 	std::vector<std::vector<int>> grid;
 	Vector2 position;

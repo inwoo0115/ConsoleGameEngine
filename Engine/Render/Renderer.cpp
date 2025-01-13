@@ -14,6 +14,7 @@ void Renderer::Raycasting()
 	double i = 0, ratio = 0;
 	Vector2 raydirection = Vector2(0.0, 0.0);
 	Vector2 plane = direction.VectorRotation(1.57);
+	//색상 초기화
 	Engine::Get().SetConsoleTextColor(1);
 
 	while (i < width)
@@ -26,11 +27,16 @@ void Renderer::Raycasting()
 		++i;
 	}
 	DrawColor();
+
+	//buffer에 담긴 이미지 출력
 	for (int ix = 0; ix < height; ++ix)
 		Log(buffer[ix]);
+	//시작 좌표 0으로 초기화
 	Engine::Get().SetCursorPosition(0, 0);
 }
 
+
+//'1' or '2'에 충돌할떄까지 거리 측정
 void Renderer::CheckDistance(double rx, double ry)
 {
 	int x = static_cast<int>(position.x);
@@ -101,6 +107,7 @@ void Renderer::CheckDistance(double rx, double ry)
 	}
 }
 
+//y축을 기준으로 한줄씩 거리에 비례하여 줄 그리기
 void Renderer::DrawLine(int x)
 {
 	int heightInt = static_cast<int>(height);
@@ -127,6 +134,7 @@ void Renderer::DrawLine(int x)
 	}
 }
 
+//'8'로 표시된 부분 색상 문자열 삽입
 void Renderer::DrawColor()
 {
 	const char* color = "\033[33m";
@@ -152,4 +160,14 @@ void Renderer::DrawColor()
 			}
 		}
 	}
+}
+
+void Renderer::SetPosition(const Vector2& newPosition)
+{
+	this->position = newPosition;
+}
+
+void Renderer::SetDirection(const Vector2& newDirection)
+{
+	this->direction = newDirection;
 }

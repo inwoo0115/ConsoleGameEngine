@@ -99,7 +99,6 @@ void Renderer::CheckDistance(double rx, double ry)
 			}
 		}
 	}
-
 }
 
 void Renderer::DrawLine(int x)

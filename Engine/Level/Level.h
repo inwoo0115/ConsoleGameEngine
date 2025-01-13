@@ -17,7 +17,7 @@ public:
 	// 액터 추가 함수.
 	void AddActor(Actor* newActor);
 
-	void DestroyActor();
+	void ProcessAddedAndDestroyedActor();
 
 	// 루프 처리 함수.
 	virtual void Update(float deltaTime);
@@ -26,4 +26,6 @@ public:
 protected:
 	// 게임 공간에 배치되는 물체(액터) 배열.
 	std::vector<Actor*> actors;
+
+	Actor* addRequestedActor = nullptr;
 };

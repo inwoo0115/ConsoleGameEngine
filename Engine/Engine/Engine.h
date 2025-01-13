@@ -40,6 +40,7 @@ public:
 	void SetCursorPosition(const Vector2& position);
 	void SetCursorPosition(double x, double y);
 	void SetConsoleTextColor(int color);
+	//콘솔 색상 문자열 출력 함수
 	void SetConsoleEnableVTmode();
 
 	// 타겟 프레임 속도 설정 함수.

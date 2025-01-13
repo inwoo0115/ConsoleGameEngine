@@ -79,14 +79,21 @@ void Engine::Run()
 		{
 			// 입력 처리 (현재 키의 눌림 상태 확인).
 			ProcessInput();
-			Update(deltaTime);
-			Draw();
-
+			if (shouldUpdate) 
+			{
+				Update(deltaTime);
+				Draw();
+			}
 			// 키 상태 저장.
 			SavePreviouseKeyStates();
 
 			// 이전 프레임 시간 저장.
 			previousTime = currentTime;
+			if (mainLevel)
+			{
+				mainLevel->ProcessAddedAndDestroyedActor();
+			}
+			shouldUpdate = true;
 		}
 
 		//Sleep(1);

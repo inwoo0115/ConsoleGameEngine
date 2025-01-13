@@ -17,11 +17,13 @@ Level::~Level()
 
 void Level::AddActor(Actor* newActor)
 {
-	actors.push_back(newActor);
+	//actors.push_back(newActor);
+	addRequestedActor = newActor;
 }
 
-void Level::DestroyActor()
+void Level::ProcessAddedAndDestroyedActor()
 {
+	//Actor 昏力 贸府
 	for (int ix = 0;ix < actors.size();)
 	{
 		if (actors[ix]->isExpired)
@@ -30,6 +32,12 @@ void Level::DestroyActor()
 			continue;
 		}
 		++ix;
+	}
+	// 眠啊 夸没等 竣磐 贸府
+	if (addRequestedActor)
+	{
+		actors.push_back(addRequestedActor);
+		addRequestedActor = nullptr;
 	}
 }
 

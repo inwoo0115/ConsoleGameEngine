@@ -88,13 +88,14 @@ void Renderer::CheckDistance(double rx, double ry)
 			if (grid[y][x] == 1)
 			{
 				distance = (y - position.y + (1 - signY) / 2) / ry;
+				side = 0;
 				break;
 			}
 			else if (grid[y][x] == 2)
 			{
 				distance = (y - position.y + (1 - signY) / 2) / ry;
-				break;
 				side = 1;
+				break;
 			}
 		}
 	}
@@ -143,12 +144,12 @@ void Renderer::DrawColor()
 				flag = 1;
 				x += colorLength;
 			}
-			else if (buffer[y][x] != '8' && flag == 1)
+			else if ((buffer[y][x] == ' ' || buffer[y][x] == '0') && flag == 1)
 			{
 				memmove(buffer[y] + x + whiteLength, buffer[y] + x, width - x + 1);
 				memcpy(buffer[y] + x, white, whiteLength);
 				flag = 0;
-				x += whiteLength;
+				x += whiteLength + 1;
 			}
 		}
 	}

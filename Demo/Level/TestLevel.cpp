@@ -18,11 +18,12 @@ TestLevel::TestLevel()
 		{1, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 1, 1},
+		{1, 0, 0, 0, 0, 0, 1, 1},
 		{1, 0, 0, 0, 0, 0, 2, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1},
 	};
 
-	AddActor(new Player(Vector2(5, 3), Vector2(0, 1), grid));
+	AddActor(new Player(Vector2(2, 2), Vector2(0, 1), grid));
 	Log("[Maze runner]\n");
 	Log("Move player with arrow keys\n");
 	Log("Enter to Yellow Gate to escape\n");

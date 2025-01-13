@@ -14,7 +14,7 @@ void Renderer::Raycasting()
 	double i = 0, ratio = 0;
 	Vector2 raydirection = Vector2(0.0, 0.0);
 	Vector2 plane = direction.VectorRotation(1.57);
-	Engine::Get().SetConsoleTextColor(7);
+	Engine::Get().SetConsoleTextColor(1);
 
 	while (i < width)
 	{
@@ -130,7 +130,7 @@ void Renderer::DrawLine(int x)
 void Renderer::DrawColor()
 {
 	const char* color = "\033[33m";
-	const char* white = "\033[0m";
+	const char* white = "\033[34m";
 	int colorLength = strlen(color);
 	int whiteLength = strlen(white);
 

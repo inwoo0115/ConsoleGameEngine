@@ -14,6 +14,7 @@ void Renderer::Raycasting()
 	double i = 0, ratio = 0;
 	Vector2 raydirection = Vector2(0.0, 0.0);
 	Vector2 plane = direction.VectorRotation(1.57);
+	Engine::Get().SetConsoleTextColor(7);
 
 	while (i < width)
 	{
@@ -24,6 +25,7 @@ void Renderer::Raycasting()
 		DrawLine(static_cast<int>(i));
 		++i;
 	}
+	DrawColor();
 	for (int ix = 0; ix < height; ++ix)
 		Log(buffer[ix]);
 	Engine::Get().SetCursorPosition(0, 0);
@@ -69,6 +71,13 @@ void Renderer::CheckDistance(double rx, double ry)
 			if (grid[y][x] == 1)
 			{
 				distance = (x - position.x + (1 - signX) / 2) / rx;
+				side = 0;
+				break;
+			}
+			else if (grid[y][x] == 2)
+			{
+				distance = (x - position.x + (1 - signX) / 2) / rx;
+				side = 1;
 				break;
 			}
 		}
@@ -81,6 +90,12 @@ void Renderer::CheckDistance(double rx, double ry)
 				distance = (y - position.y + (1 - signY) / 2) / ry;
 				break;
 			}
+			else if (grid[y][x] == 2)
+			{
+				distance = (y - position.y + (1 - signY) / 2) / ry;
+				break;
+				side = 1;
+			}
 		}
 	}
 
@@ -88,7 +103,6 @@ void Renderer::CheckDistance(double rx, double ry)
 
 void Renderer::DrawLine(int x)
 {
-	//화면 높이
 	int heightInt = static_cast<int>(height);
 	int lineHeight = static_cast<int>(heightInt / distance);
 
@@ -99,19 +113,43 @@ void Renderer::DrawLine(int x)
 	if (end >= heightInt)
 		end = heightInt - 1;
 
-	//for (int y = 0; y < heightInt; ++y)
-	//{
-	//	Engine::Get().SetCursorPosition(x, y);
-	//	if (y < start || y > end)
-	//		Log(" ");
-	//	else
-	//		Log("*");
-	//}
 	for (int y = 0; y < heightInt; ++y)
 	{
 		if (y < start || y > end)
 			buffer[y][x] = ' ';
 		else
-			buffer[y][x] = '0';
+		{
+			if (side == 0)
+				buffer[y][x] = '0';
+			else if (side == 1)
+				buffer[y][x] = '8';
+		}
+	}
+}
+
+void Renderer::DrawColor()
+{
+	const char* color = "\033[33m";
+	const char* white = "\033[0m";
+	int colorLength = strlen(color);
+	int whiteLength = strlen(white);
+
+	for (int y = 0;y < height;++y) {
+		for (int x = 0;x < width;++x) {
+			if (buffer[y][x] == '8' && flag == 0)
+			{
+				memmove(buffer[y] + x + colorLength, buffer[y] + x, width - x + 1);
+				memcpy(buffer[y] + x, color, colorLength);
+				flag = 1;
+				x += colorLength;
+			}
+			else if (buffer[y][x] != '8' && flag == 1)
+			{
+				memmove(buffer[y] + x + whiteLength, buffer[y] + x, width - x + 1);
+				memcpy(buffer[y] + x, white, whiteLength);
+				flag = 0;
+				x += whiteLength;
+			}
+		}
 	}
 }

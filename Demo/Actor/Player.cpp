@@ -36,4 +36,9 @@ void Player::Update(float deltaTime)
 		if (grid[static_cast<int>(y)][static_cast<int>(x)] != 1)
 			SetPosition(Vector2(x, y));
 	}
+	//출구에 왔을 경우 종료
+	if (grid[static_cast<int>(position.y)][static_cast<int>(position.x)] == 2)
+	{
+		Engine::Get().QuitGame();
+	}
 }

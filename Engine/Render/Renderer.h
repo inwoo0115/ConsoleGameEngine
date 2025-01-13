@@ -14,6 +14,7 @@ public:
 	void Raycasting();
 	void CheckDistance(double rx, double ry);
 	void DrawLine(int i);
+	void DrawColor();
 
 private:
 	std::vector<std::vector<int>> grid;
@@ -22,6 +23,9 @@ private:
 	double width;
 	double distance;
 	double height;
+
+	int side = 0;
+	int flag = 0;
 
 	char buffer[1000][1000] = {};
 };

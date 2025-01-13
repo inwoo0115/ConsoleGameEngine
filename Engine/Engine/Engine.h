@@ -39,6 +39,8 @@ public:
 	void SetCursorType(CursorType cursorType);
 	void SetCursorPosition(const Vector2& position);
 	void SetCursorPosition(double x, double y);
+	void SetConsoleTextColor(int color);
+	void SetConsoleEnableVTmode();
 
 	// 타겟 프레임 속도 설정 함수.
 	void SetTargetFrameRate(float targetFrameRate);
@@ -47,6 +49,8 @@ public:
 	bool GetKey(int key);
 	bool GetKeyDown(int key);
 	bool GetKeyUp(int key);
+	
+	bool IsKey();
 
 	// 엔진 종료 함수.
 	void QuitGame();

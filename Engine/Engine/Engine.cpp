@@ -96,7 +96,10 @@ void Engine::Run()
 void Engine::LoadLevel(Level* newLevel)
 {
 	// 기존 레벨이 있다면 삭제 후 교체.
-
+	if (mainLevel != nullptr)
+	{
+		delete mainLevel;
+	}
 	// 메인 레벨 설정.
 	mainLevel = newLevel;
 }
@@ -142,6 +145,24 @@ void Engine::SetCursorPosition(double x, double y)
 	SetConsoleCursorPosition(handle, coord);
 }
 
+void Engine::SetConsoleTextColor(int color)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, color);
+}
+
+void Engine::SetConsoleEnableVTmode()
+{
+	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (hOut == INVALID_HANDLE_VALUE) return;
+
+	DWORD dwMode = 0;
+	if (!GetConsoleMode(hOut, &dwMode)) return;
+
+	dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+	SetConsoleMode(hOut, dwMode);
+}
+
 void Engine::SetTargetFrameRate(float targetFrameRate)
 {
 	this->targetFrameRate = targetFrameRate;
@@ -161,6 +182,16 @@ bool Engine::GetKeyDown(int key)
 bool Engine::GetKeyUp(int key)
 {
 	return !keyState[key].isKeyDown && keyState[key].wasKeyDown;
+}
+
+bool Engine::IsKey()
+{
+	for (int ix = 0; ix < 255; ++ix)
+	{
+		if (keyState[ix].isKeyDown)
+			return true;
+	}
+	return false;
 }
 
 void Engine::QuitGame()

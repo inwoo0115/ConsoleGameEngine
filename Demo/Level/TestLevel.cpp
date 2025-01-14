@@ -42,6 +42,8 @@ void TestLevel::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 	
+	
+	// totalTime += 1.0 * deltaTime;
 	// 상태 변화가 있을 시 render
 	if (Engine::Get().IsKey())
 	{

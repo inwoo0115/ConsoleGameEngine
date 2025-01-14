@@ -3,6 +3,7 @@
 #include "Engine.h"
 #include <Windows.h>
 #include <iostream>
+#include <time.h>
 
 #include "Level/Level.h"
 
@@ -12,6 +13,9 @@ Engine* Engine::instance = nullptr;
 Engine::Engine()
 	: quit(false), mainLevel(nullptr)
 {
+	//랜덤 시드 설정
+	srand((unsigned int)time(nullptr));
+
 	// 싱글톤 객체 설정.
 	instance = this;
 
@@ -48,7 +52,7 @@ void Engine::Run()
 	QueryPerformanceCounter(&time);
 
 	int64_t currentTime = time.QuadPart;
-	int64_t previousTime = 0;
+	int64_t previousTime = currentTime;
 
 	// 프레임 제한.
 	//float targetFrameRate = 90.0f;
@@ -69,15 +73,14 @@ void Engine::Run()
 		//time = timeGetTime();
 		QueryPerformanceCounter(&time);
 		currentTime = time.QuadPart;
-
 		// 프레임 시간 계산.
 		float deltaTime = static_cast<float>(currentTime - previousTime) /
 			static_cast<float>(frequency.QuadPart);
-
 		// 프레임 확인.
 		if (deltaTime >= targetOneFrameTime)
 		{
 			// 입력 처리 (현재 키의 눌림 상태 확인).
+			std::cout << deltaTime << "\n";
 			ProcessInput();
 			if (shouldUpdate) 
 			{
@@ -95,7 +98,6 @@ void Engine::Run()
 			}
 			shouldUpdate = true;
 		}
-
 		//Sleep(1);
 	}
 }

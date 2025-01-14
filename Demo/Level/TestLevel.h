@@ -18,4 +18,5 @@ public:
 private:
 	std::vector<std::vector<int>> grid;
 	Renderer* renderer;
+	float totalTime = 0;
 };

@@ -80,7 +80,6 @@ void Engine::Run()
 		if (deltaTime >= targetOneFrameTime)
 		{
 			// 입력 처리 (현재 키의 눌림 상태 확인).
-			std::cout << deltaTime << "\n";
 			ProcessInput();
 			if (shouldUpdate) 
 			{

@@ -7,6 +7,8 @@ Renderer::Renderer(std::vector<std::vector<int>> grid, \
 	Vector2 position, Vector2 direction, double width, double height) : \
 	grid(grid), position(position), direction(direction), width(width), height(height), distance(0)
 {
+	stamina = static_cast<int>(width);
+	time = static_cast<int>(width);
 }
 
 void Renderer::Raycasting()
@@ -32,12 +34,14 @@ void Renderer::Raycasting()
 	//buffer에 담긴 이미지 출력
 	for (int ix = 0; ix < height; ++ix)
 		Log(buffer[ix]);
+	//time, stamina 출력
+	DrawInfo();
 	//시작 좌표 0으로 초기화
 	Engine::Get().SetCursorPosition(0, 0);
 }
 
 
-//'1' or '2'에 충돌할떄까지 거리 측정
+//1이상 숫자에 충돌할떄까지 거리 측정
 void Renderer::CheckDistance(double rx, double ry)
 {
 	int x = static_cast<int>(position.x);
@@ -187,6 +191,23 @@ void Renderer::DrawColor()
 				prevText = '0';
 			}
 		}
+	}
+}
+
+void Renderer::DrawInfo()
+{
+	int heightInt = static_cast<int>(height);
+	Engine::Get().SetConsoleTextColor(2);
+	for (int i = 0; i < 5; ++i)
+	{
+		memset(buffer[i + heightInt], '0', stamina);
+		Log(buffer[i + heightInt]);
+	}
+	Engine::Get().SetConsoleTextColor(4);
+	for (int i = 5; i < 10; ++i)
+	{
+		memset(buffer[i + heightInt], '0', time);
+		Log(buffer[i + heightInt]);
 	}
 }
 

@@ -21,18 +21,20 @@ void Player::Update(float deltaTime)
 		SetDirection(direction.VectorRotation(-0.1));
 	}
 
-	double x = 0.0, y = 0.0;
+	double x = 0.0, y = 0.0, speed = 0.05;
+	if (Engine::Get().GetKey(VK_SPACE))
+		speed = 0.1;
 	if (Engine::Get().GetKey(VK_UP))
 	{
-		x = position.x + direction.x * 0.1;
-		y = position.y + direction.y * 0.1;
+		x = position.x + direction.x * speed;
+		y = position.y + direction.y * speed;
 		if (grid[static_cast<int>(y)][static_cast<int>(x)] != 1)
 			SetPosition(Vector2(x, y));
 	}
 	else if (Engine::Get().GetKey(VK_DOWN))
 	{
-		x = position.x - direction.x * 0.1;
-		y = position.y - direction.y * 0.1;
+		x = position.x - direction.x * speed;
+		y = position.y - direction.y * speed;
 		if (grid[static_cast<int>(y)][static_cast<int>(x)] != 1)
 			SetPosition(Vector2(x, y));
 	}

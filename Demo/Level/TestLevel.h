@@ -11,7 +11,7 @@ class TestLevel : public Level
 	RTTI_DECLARATIONS(TestLevel, Level)
 
 public:
-	TestLevel();
+	TestLevel(int width, int height);
 	~TestLevel();
 
 	virtual void Update(float deltaTime) override;
@@ -23,5 +23,5 @@ private:
 
 	Timer* timer;
 
-	int totalTime = 400;
+	int totalTime;
 };

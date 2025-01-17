@@ -8,7 +8,7 @@ class Player : public Actor
 	RTTI_DECLARATIONS(Player, Actor)
 
 public:
-	Player(Vector2 position, Vector2 direction, std::vector<std::vector<int>> grid);
+	Player(Vector2 position, Vector2 direction, std::vector<std::vector<int>> grid, int stamina);
 	~Player() {};
 
 	virtual void Update(float deltaTime) override;

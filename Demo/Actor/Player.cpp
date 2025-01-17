@@ -1,12 +1,12 @@
 #include "Player.h"
 #include "Engine/Engine.h"
 
-Player::Player(Vector2 position, Vector2 direction, std::vector<std::vector<int>> grid)
+Player::Player(Vector2 position, Vector2 direction, std::vector<std::vector<int>> grid, int stamina)
 {
 	SetPosition(position);
 	SetDirection(direction);
 	this->grid = grid;
-	stamina = 400;
+	this->stamina = stamina;
 }
 
 void Player::Update(float deltaTime)
@@ -58,13 +58,9 @@ void Player::Update(float deltaTime)
 			SetPosition(Vector2(x, y));
 	}
 
-	//출구에 왔을 경우 종료
+	//포탈 타기
 	int currentPosition = grid[static_cast<int>(position.y)][static_cast<int>(position.x)];
-	if (currentPosition == 2)
-	{
-		Engine::Get().QuitGame();
-	}
-	else if (currentPosition > 2)
+	if (currentPosition > 2)
 	{
 		UsePortal(currentPosition);
 	}
@@ -77,6 +73,7 @@ void Player::UsePortal(int portal)
 			if (grid[i][j] == portal) {
 				if (i != static_cast<int>(position.y) && j != static_cast<int>(position.x))
 				{
+					//포탈과 안곂치게 탈출
 					if (grid[i+1][j] == 0)
 					{
 						SetPosition(Vector2(j, i + 1));

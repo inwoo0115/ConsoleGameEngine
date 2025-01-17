@@ -5,7 +5,7 @@
 #include "Game/Game.h"
 #include "Timer/Timer.h"
 
-TestLevel::TestLevel()
+TestLevel::TestLevel(int width, int height)
 {
 	grid = {
 		{1, 1, 1, 1, 1, 1, 1, 1},
@@ -26,13 +26,10 @@ TestLevel::TestLevel()
 	};
 
 	//초기 설정
-	AddActor(new Player(Vector2(2, 2), Vector2(0, 1), grid));
-	Log("[Maze runner]\n");
-	Log("Move player with arrow keys\n");
-	Log("Enter to Yellow Gate to escape\n");
-	Log("and Press button to Start!");
-	renderer = new Renderer(grid, Vector2(2, 2), Vector2(0, 1), 400, 150);
+	AddActor(new Player(Vector2(2, 2), Vector2(0, 1), grid, width));
+	renderer = new Renderer(grid, Vector2(2, 2), Vector2(0, 1), width, height);
 	timer = new Timer(0.3);
+	totalTime = width;
 }
 
 TestLevel::~TestLevel()
@@ -49,8 +46,10 @@ void TestLevel::Update(float deltaTime)
 	
 	timer->Update(deltaTime);
 
-	//Game::Get().SetConsoleFontSize(3, 3);
-	//Game::Get().SetConsoleScreenSize(120, 30);
+
+	//글자 크기 처리 요망
+	//Game::Get().SetConsoleFontSize(1, 2);
+	//Game::Get().SetConsoleScreenSize(40, 80);
 
 	//player rednering
 	Player* player = dynamic_cast<Player*>(actors[0]);
@@ -67,16 +66,26 @@ void TestLevel::Update(float deltaTime)
 		timer->Reset();
 	}
 
-	// ESC 키로 종료.
+	// ESC 키로 메뉴 화면.
 	if (Engine::Get().GetKeyDown(VK_ESCAPE))
 	{
 		//Engine::Get().QuitGame();
 		Game::Get().ToggleMenu();
 	}
 
-	// 시간 지났을 시 종료
+	// 시간 지났을 시 종료 (추후 화면 전환으로 변경)
 	if (totalTime < 2)
 	{
+		system("cls");
+		Engine::Get().SetConsoleTextColor(7);
+		Engine::Get().QuitGame();
+	}
+
+	// 출구에 왔을 시 종료 (추후 화면 전환으로 변경)
+	if (grid[player->Position().y][player->Position().x] == 2)
+	{
+		system("cls");
+		Engine::Get().SetConsoleTextColor(7);
 		Engine::Get().QuitGame();
 	}
 }

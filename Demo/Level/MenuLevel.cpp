@@ -3,7 +3,7 @@
 
 MenuLevel::MenuLevel()
 {
-	items.emplace_back(new MenuItem("Resume Game", []() {Game::Get().ToggleMenu(); }));
+	items.emplace_back(new MenuItem("Start Game", []() {Game::Get().ToggleMenu(); }));
 	items.emplace_back(new MenuItem("Quit Game", []() {Game::Get().QuitGame(); }));
 
 	//메뉴 개수 저장
@@ -52,17 +52,17 @@ void MenuLevel::Draw()
 	
 
 	// 글씨 크기 설정 TODO: 어떻게 하지...
-	//Game::Get().SetConsoleFontSize(24, 24);
-	//Game::Get().SetConsoleScreenSize(120, 30);
+	//Game::Get().SetConsoleFontSize(16, 24);
+	//Game::Get().SetConsoleScreenSize(32, 34);
+
 	Game::Get().SetCursorPosition(Vector2(0, 0));
 	Game::Get().SetConsoleTextColor(unselectedColor);
 	std::cout << "Menu title\n\n";
-	
+
 
 	for (int ix = 0; ix < itemCount; ++ix)
 	{
 		Game::Get().SetConsoleTextColor(ix == currentSelectIndex ? selectedColor : unselectedColor);
 		std::cout << items[ix]->text << "\n";
 	}
-
 }

@@ -200,6 +200,46 @@ void Engine::SetConsoleFontSize(int fontSizeX, int fontSizeY) {
 	SetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
 }
 
+void Engine::SetConsoleScreenSize(int width, int height)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	// 콘솔 화면 버퍼 크기 설정
+	COORD bufferSize;
+	bufferSize.X = width;  // 콘솔 버퍼의 너비
+	bufferSize.Y = height; // 콘솔 버퍼의 높이
+
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	if (!GetConsoleScreenBufferInfo(hConsole, &csbi)) {
+		std::cerr << "Error: Unable to get console screen buffer info." << std::endl;
+		return;
+	}
+
+	// 최대 크기 확인
+	int maxWidth = csbi.dwMaximumWindowSize.X;
+	int maxHeight = csbi.dwMaximumWindowSize.Y;
+	if (width > maxWidth || height > maxHeight) {
+		std::cerr << "Error: Window size exceeds maximum screen resolution." << maxWidth << " " << maxHeight << std::endl;
+	}
+
+	if (!SetConsoleScreenBufferSize(hConsole, bufferSize)) {
+		std::cerr << "Error: Unable to set console screen buffer size." << std::endl;
+		return;
+	}
+
+	// 콘솔 창 크기 설정
+	SMALL_RECT windowSize;
+	windowSize.Left = 0;
+	windowSize.Top = 0;
+	windowSize.Right = width - 1;
+	windowSize.Bottom = height - 1;
+
+	if (!SetConsoleWindowInfo(hConsole, TRUE, &windowSize)) {
+		std::cerr << "Error: Unable to set console window size." << std::endl;
+		return;
+	}
+}
+
 void Engine::SetTargetFrameRate(float targetFrameRate)
 {
 	this->targetFrameRate = targetFrameRate;

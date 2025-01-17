@@ -3,6 +3,7 @@
 #include "Render/Renderer.h"
 #include "Actor/Player.h"
 #include "Game/Game.h"
+#include "Timer/Timer.h"
 
 TestLevel::TestLevel()
 {
@@ -31,31 +32,51 @@ TestLevel::TestLevel()
 	Log("Enter to Yellow Gate to escape\n");
 	Log("and Press button to Start!");
 	renderer = new Renderer(grid, Vector2(2, 2), Vector2(0, 1), 400, 150);
+	timer = new Timer(0.3);
 }
 
 TestLevel::~TestLevel()
 {
 	if (renderer != nullptr)
 		delete renderer;
+	if (timer != nullptr)
+		delete timer;
 }
 
 void TestLevel::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 	
-	Game::Get().SetConsoleFontSize(12, 12);
-	// totalTime += 1.0 * deltaTime;
-	// 상태 변화가 있을 시 render
-	if (Engine::Get().IsKey())
+	timer->Update(deltaTime);
+
+	//Game::Get().SetConsoleFontSize(3, 3);
+	//Game::Get().SetConsoleScreenSize(120, 30);
+
+	//player rednering
+	Player* player = dynamic_cast<Player*>(actors[0]);
+	renderer->SetPosition(player->Position());
+	renderer->SetDirection(player->Direction());
+	renderer->SetStamina(player->GetStamina());
+	renderer->SetTime(totalTime);
+	renderer->Raycasting();
+
+	//1초 타이머
+	if (timer->IsTimeOut())
 	{
-		renderer->SetPosition(actors[0]->Position());
-		renderer->SetDirection(actors[0]->Direction());
-		renderer->Raycasting();
+		--totalTime;
+		timer->Reset();
 	}
+
 	// ESC 키로 종료.
 	if (Engine::Get().GetKeyDown(VK_ESCAPE))
 	{
 		//Engine::Get().QuitGame();
 		Game::Get().ToggleMenu();
+	}
+
+	// 시간 지났을 시 종료
+	if (totalTime < 2)
+	{
+		Engine::Get().QuitGame();
 	}
 }

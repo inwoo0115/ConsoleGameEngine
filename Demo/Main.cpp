@@ -10,5 +10,6 @@ int main()
 
 	Game game;
 	game.LoadLevel(new TestLevel());
+	game.Get().ToggleMenu();
 	game.Run();
 }

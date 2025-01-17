@@ -206,6 +206,7 @@ xcopy $(OutDir)\*.lib $(SolutionDir)\Lib\ /e /y</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Render\Renderer.cpp" />
+    <ClCompile Include="Timer\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
@@ -216,6 +217,7 @@ xcopy $(OutDir)\*.lib $(SolutionDir)\Lib\ /e /y</Command>
     <ClInclude Include="PreCompiledHeader\PreCompiledHeader.h" />
     <ClInclude Include="Render\Renderer.h" />
     <ClInclude Include="RTTI.h" />
+    <ClInclude Include="Timer\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

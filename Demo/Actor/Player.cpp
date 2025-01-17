@@ -6,12 +6,16 @@ Player::Player(Vector2 position, Vector2 direction, std::vector<std::vector<int>
 	SetPosition(position);
 	SetDirection(direction);
 	this->grid = grid;
+	stamina = 400;
 }
 
 void Player::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
+	double x = 0.0, y = 0.0, speed = 0.03;
+
+	//방향전환
 	if (Engine::Get().GetKey(VK_RIGHT))
 	{
 		SetDirection(direction.VectorRotation(0.1));
@@ -21,9 +25,24 @@ void Player::Update(float deltaTime)
 		SetDirection(direction.VectorRotation(-0.1));
 	}
 
-	double x = 0.0, y = 0.0, speed = 0.05;
+
+	//달리기
 	if (Engine::Get().GetKey(VK_SPACE))
-		speed = 0.1;
+	{
+		if (stamina > 10)
+		{
+			speed = 0.1;
+			stamina -= 2;
+		}
+	}
+	else
+	{
+		if (stamina < 400)
+			stamina += 2;
+	}
+
+
+	//이동
 	if (Engine::Get().GetKey(VK_UP))
 	{
 		x = position.x + direction.x * speed;
@@ -38,6 +57,7 @@ void Player::Update(float deltaTime)
 		if (grid[static_cast<int>(y)][static_cast<int>(x)] != 1)
 			SetPosition(Vector2(x, y));
 	}
+
 	//출구에 왔을 경우 종료
 	int currentPosition = grid[static_cast<int>(position.y)][static_cast<int>(position.x)];
 	if (currentPosition == 2)
@@ -57,7 +77,26 @@ void Player::UsePortal(int portal)
 			if (grid[i][j] == portal) {
 				if (i != static_cast<int>(position.y) && j != static_cast<int>(position.x))
 				{
-					SetPosition(Vector2(j, i));
+					if (grid[i+1][j] == 0)
+					{
+						SetPosition(Vector2(j, i + 1));
+						SetDirection(Vector2(-1, 0));
+					}
+					else if (grid[i][j + 1] == 0)
+					{
+						SetPosition(Vector2(j + 1, i));
+						SetDirection(Vector2(0, -1));
+					}
+					else if (grid[i - 1][j] == 0)
+					{
+						SetPosition(Vector2(j, i - 1));
+						SetDirection(Vector2(1, 0));
+					}
+					else if (grid[i][j - 1] == 0)
+					{
+						SetPosition(Vector2(j - 1, i));
+						SetDirection(Vector2(0, 1));
+					}
 				}
 			}
 		}

@@ -49,7 +49,11 @@ void MenuLevel::Draw()
 	Super::Draw();
 	
 	//메뉴 제목 출력
-	Game::Get().SetConsoleFontSize(36, 36);
+	
+
+	// 글씨 크기 설정 TODO: 어떻게 하지...
+	//Game::Get().SetConsoleFontSize(24, 24);
+	//Game::Get().SetConsoleScreenSize(120, 30);
 	Game::Get().SetCursorPosition(Vector2(0, 0));
 	Game::Get().SetConsoleTextColor(unselectedColor);
 	std::cout << "Menu title\n\n";

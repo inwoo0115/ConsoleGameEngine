@@ -197,16 +197,20 @@ void Renderer::DrawColor()
 void Renderer::DrawInfo()
 {
 	int heightInt = static_cast<int>(height);
+	int widthInt = static_cast<int>(width);
+
 	Engine::Get().SetConsoleTextColor(2);
 	for (int i = 0; i < 5; ++i)
 	{
 		memset(buffer[i + heightInt], '0', stamina);
+		memset(buffer[i + heightInt] + stamina, ' ', widthInt - stamina + 1);
 		Log(buffer[i + heightInt]);
 	}
 	Engine::Get().SetConsoleTextColor(4);
 	for (int i = 5; i < 10; ++i)
 	{
 		memset(buffer[i + heightInt], '0', time);
+		memset(buffer[i + heightInt] + time, ' ', widthInt - time + 1);
 		Log(buffer[i + heightInt]);
 	}
 }

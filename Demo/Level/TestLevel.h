@@ -3,6 +3,7 @@
 #include "Level/Level.h"
 
 class Renderer;
+class Timer;
 
 class TestLevel : public Level
 {
@@ -17,6 +18,10 @@ public:
 
 private:
 	std::vector<std::vector<int>> grid;
+
 	Renderer* renderer;
-	float totalTime = 0;
+
+	Timer* timer;
+
+	int totalTime = 400;
 };

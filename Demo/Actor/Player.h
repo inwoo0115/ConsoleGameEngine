@@ -13,8 +13,10 @@ public:
 
 	virtual void Update(float deltaTime) override;
 	void SetGrid(std::vector<std::vector<int>> grid) { this->grid = grid; };
+	int GetStamina() { return stamina; };
 	void UsePortal(int portal);
 
 private:
 	std::vector<std::vector<int>> grid;
+	int stamina;
 };

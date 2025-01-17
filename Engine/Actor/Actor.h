@@ -25,7 +25,7 @@ public:
 	virtual void SetDirection(const Vector2& newDirection);
 	inline Vector2 Direction() const;
 
-	inline bool IsActive() const { return isActive; }
+	inline bool IsActive() const { return isActive && !isExpired; }
 	inline void SetActive(bool active) { isActive = active; }
 	inline void Destroy() { isExpired = true; }
 

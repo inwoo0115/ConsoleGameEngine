@@ -6,6 +6,16 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 #include <vector>
+#include <Windows.h>
+
+//color enum
+enum class Color
+{
+	Red = FOREGROUND_RED,
+	Green = FOREGROUND_GREEN,
+	Blue = FOREGROUND_BLUE,
+	White = Red + Green + Blue,
+};
 
 // 메모리 삭제 함수.
 template<typename T>
@@ -40,6 +50,11 @@ inline float RandomPercent(float min, float max)
 {
 	float random = (float)(rand() / (float)RAND_MAX);
 	return random * (max - min) + min;
+}
+
+inline void CheckMemoryLeak()
+{
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 }
 
 // 디버깅 용도.

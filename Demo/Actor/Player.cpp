@@ -11,11 +11,11 @@ Player::Player(Vector2 position, Vector2 direction, std::vector<std::vector<int>
 void Player::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
-	
+
 	if (Engine::Get().GetKey(VK_RIGHT))
 	{
 		SetDirection(direction.VectorRotation(0.1));
-	}	
+	}
 	else if (Engine::Get().GetKey(VK_LEFT))
 	{
 		SetDirection(direction.VectorRotation(-0.1));
@@ -37,8 +37,27 @@ void Player::Update(float deltaTime)
 			SetPosition(Vector2(x, y));
 	}
 	//출구에 왔을 경우 종료
-	if (grid[static_cast<int>(position.y)][static_cast<int>(position.x)] == 2)
+	int currentPosition = grid[static_cast<int>(position.y)][static_cast<int>(position.x)];
+	if (currentPosition == 2)
 	{
 		Engine::Get().QuitGame();
+	}
+	else if (currentPosition > 2)
+	{
+		UsePortal(currentPosition);
+	}
+}
+
+void Player::UsePortal(int portal)
+{
+	for (double i = 0.0; i < grid.size(); ++i) {
+		for (double j = 0.0; j < grid[i].size(); ++j) {
+			if (grid[i][j] == portal) {
+				if (i != static_cast<int>(position.y) && j != static_cast<int>(position.x))
+				{
+					SetPosition(Vector2(j, i));
+				}
+			}
+		}
 	}
 }

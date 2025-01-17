@@ -2,12 +2,13 @@
 #include "Engine/Engine.h"
 #include "Render/Renderer.h"
 #include "Actor/Player.h"
+#include "Game/Game.h"
 
 TestLevel::TestLevel()
 {
 	grid = {
 		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 3, 1},
 		{1, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 1},
@@ -19,7 +20,7 @@ TestLevel::TestLevel()
 		{1, 0, 0, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 1, 1},
 		{1, 0, 0, 0, 0, 0, 1, 1},
-		{1, 0, 0, 0, 0, 0, 2, 1},
+		{1, 0, 3, 0, 0, 0, 2, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1},
 	};
 
@@ -42,7 +43,7 @@ void TestLevel::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 	
-	
+	Game::Get().SetConsoleFontSize(12, 12);
 	// totalTime += 1.0 * deltaTime;
 	// 상태 변화가 있을 시 render
 	if (Engine::Get().IsKey())
@@ -54,6 +55,7 @@ void TestLevel::Update(float deltaTime)
 	// ESC 키로 종료.
 	if (Engine::Get().GetKeyDown(VK_ESCAPE))
 	{
-		Engine::Get().QuitGame();
+		//Engine::Get().QuitGame();
+		Game::Get().ToggleMenu();
 	}
 }

@@ -171,6 +171,35 @@ void Engine::SetConsoleEnableVTmode()
 	SetConsoleMode(hOut, dwMode);
 }
 
+//TODO: 왠지 모르겠는데 작동을 안함
+void Engine::SetConsoleFontSize(int fontSizeX, int fontSizeY) {
+	// 콘솔 핸들 가져오기
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	if (hConsole == INVALID_HANDLE_VALUE) {
+		//std::cerr << "Error: Unable to get console handle" << std::endl;
+		return;
+	}
+
+	// 콘솔 글꼴 정보 구조체 초기화
+	CONSOLE_FONT_INFOEX cfi;
+	cfi.cbSize = sizeof(CONSOLE_FONT_INFOEX);
+
+	// 현재 콘솔 글꼴 정보 가져오기
+	if (!GetCurrentConsoleFontEx(hConsole, FALSE, &cfi)) {
+		//std::cerr << "Error: Unable to get console font info" << std::endl;
+		return;
+	}
+
+	// 글꼴 크기 설정
+	cfi.dwFontSize.X = fontSizeX; // 글자 너비
+	cfi.dwFontSize.Y = fontSizeY; // 글자 높이
+	wcscpy_s(cfi.FaceName, L"Cascadia Mono"); // 글꼴 이름 설정 (예: Consolas)
+
+	// 글꼴 정보 설정
+	SetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
+}
+
 void Engine::SetTargetFrameRate(float targetFrameRate)
 {
 	this->targetFrameRate = targetFrameRate;

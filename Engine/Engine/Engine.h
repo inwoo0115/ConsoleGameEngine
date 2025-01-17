@@ -40,6 +40,7 @@ public:
 	void SetCursorPosition(const Vector2& position);
 	void SetCursorPosition(double x, double y);
 	void SetConsoleTextColor(int color);
+	void SetConsoleFontSize(int fontSizeX, int fontSizeY); //TODO: 왠지 모르겠는데 작동을 안함
 	//콘솔 색상 문자열 출력 함수
 	void SetConsoleEnableVTmode();
 

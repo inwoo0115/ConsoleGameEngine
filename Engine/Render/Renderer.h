@@ -19,6 +19,10 @@ public:
 	//setter
 	void SetPosition(const Vector2& newPosition);
 	void SetDirection(const Vector2& newDirection);
+	void SetGrid(std::vector<std::vector<int>> grid) { this->grid = grid; };
+
+
+	void ClearBuffer(char buffer[1000][1000]);
 
 private:
 	std::vector<std::vector<int>> grid;

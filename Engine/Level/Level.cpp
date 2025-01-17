@@ -28,7 +28,7 @@ void Level::ProcessAddedAndDestroyedActor()
 	{
 		if (actors[ix]->isExpired)
 		{
-			actors.erase(actors.begin() + ix);
+			actors.erase(actors.begin() + ix); 
 			continue;
 		}
 		++ix;

@@ -12,6 +12,8 @@ public:
 	~Player() {};
 
 	virtual void Update(float deltaTime) override;
+	void SetGrid(std::vector<std::vector<int>> grid) { this->grid = grid; };
+	void UsePortal(int portal);
 
 private:
 	std::vector<std::vector<int>> grid;

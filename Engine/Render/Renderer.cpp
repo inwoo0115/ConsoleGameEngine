@@ -16,6 +16,7 @@ void Renderer::Raycasting()
 	Vector2 plane = direction.VectorRotation(1.57);
 	//색상 초기화
 	Engine::Get().SetConsoleTextColor(1);
+	ClearBuffer(buffer);
 
 	while (i < width)
 	{
@@ -86,6 +87,12 @@ void Renderer::CheckDistance(double rx, double ry)
 				side = 1;
 				break;
 			}
+			else if (grid[y][x] > 2)
+			{
+				distance = (x - position.x + (1 - signX) / 2) / rx;
+				side = 2;
+				break;
+			}
 		}
 		else
 		{
@@ -101,6 +108,12 @@ void Renderer::CheckDistance(double rx, double ry)
 			{
 				distance = (y - position.y + (1 - signY) / 2) / ry;
 				side = 1;
+				break;
+			}
+			else if (grid[y][x] > 2)
+			{
+				distance = (y - position.y + (1 - signY) / 2) / ry;
+				side = 2;
 				break;
 			}
 		}
@@ -130,6 +143,8 @@ void Renderer::DrawLine(int x)
 				buffer[y][x] = '0';
 			else if (side == 1)
 				buffer[y][x] = '8';
+			else if (side == 2)
+				buffer[y][x] = '1';
 		}
 	}
 }
@@ -139,24 +154,37 @@ void Renderer::DrawColor()
 {
 	const char* color = "\033[33m";
 	const char* white = "\033[34m";
+	const char* portal = "\033[35m";
 	int colorLength = strlen(color);
+	int portalLength = strlen(portal);
 	int whiteLength = strlen(white);
+	char prevText = '0';
 
 	for (int y = 0;y < height;++y) {
 		for (int x = 0;x < width;++x) {
-			if (buffer[y][x] == '8' && flag == 0)
+			if (buffer[y][x] == '8' && prevText != '8')
 			{
-				memmove(buffer[y] + x + colorLength, buffer[y] + x, width - x + 1);
+				memmove(buffer[y] + x + colorLength, buffer[y] + x, width - x + 10);
 				memcpy(buffer[y] + x, color, colorLength);
-				flag = 1;
+				//flag = 1;
 				x += colorLength;
+				prevText = '8';
 			}
-			else if ((buffer[y][x] == ' ' || buffer[y][x] == '0') && flag == 1)
+			else if (buffer[y][x] == '1' && prevText != '1')
 			{
-				memmove(buffer[y] + x + whiteLength, buffer[y] + x, width - x + 1);
+				memmove(buffer[y] + x + portalLength, buffer[y] + x, width - x + 10);
+				memcpy(buffer[y] + x, portal, portalLength);
+				//flag = 1;
+				x += colorLength;
+				prevText = '1';
+			}
+			else if ((buffer[y][x] == ' ' || buffer[y][x] == '0') && prevText != '0')
+			{
+				memmove(buffer[y] + x + whiteLength, buffer[y] + x, width - x + 10);
 				memcpy(buffer[y] + x, white, whiteLength);
-				flag = 0;
+				//flag = 0;
 				x += whiteLength + 1;
+				prevText = '0';
 			}
 		}
 	}
@@ -170,4 +198,12 @@ void Renderer::SetPosition(const Vector2& newPosition)
 void Renderer::SetDirection(const Vector2& newDirection)
 {
 	this->direction = newDirection;
+}
+
+void Renderer::ClearBuffer(char buffer[1000][1000])
+{
+	// 배열의 각 요소를 \0으로 초기화
+	for (int i = 0; i < 1000; ++i) {
+		memset(buffer[i], '\0', 1000);
+	}
 }

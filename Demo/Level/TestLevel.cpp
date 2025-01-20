@@ -47,9 +47,11 @@ void TestLevel::Update(float deltaTime)
 	timer->Update(deltaTime);
 
 
-	//글자 크기 처리 요망
-	//Game::Get().SetConsoleFontSize(1, 2);
-	//Game::Get().SetConsoleScreenSize(40, 80);
+
+	//글자 크기 처리
+	Game::Get().SetConsoleFontSize(2, 3);
+	Game::Get().SetConsoleScreenSize(420, 200);
+
 
 	//player rednering
 	Player* player = dynamic_cast<Player*>(actors[0]);

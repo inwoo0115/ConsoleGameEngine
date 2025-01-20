@@ -68,32 +68,33 @@ void Player::Update(float deltaTime)
 
 void Player::UsePortal(int portal)
 {
-	for (double i = 0.0; i < grid.size(); ++i) {
-		for (double j = 0.0; j < grid[i].size(); ++j) {
+	for (int i = 0; i < grid.size(); ++i) {
+		for (int j = 0; j < grid[i].size(); ++j) {
 			if (grid[i][j] == portal) {
-				if (i != static_cast<int>(position.y) && j != static_cast<int>(position.x))
+				if (i != static_cast<int>(position.y) || j != static_cast<int>(position.x))
 				{
 					//∆˜≈ª∞˙ æ»Å»ƒ°∞‘ ≈ª√‚
 					if (grid[i+1][j] == 0)
 					{
-						SetPosition(Vector2(j, i + 1));
+						SetPosition(Vector2(j + 0.5, i + 1.5));
 						SetDirection(Vector2(-1, 0));
 					}
 					else if (grid[i][j + 1] == 0)
 					{
-						SetPosition(Vector2(j + 1, i));
+						SetPosition(Vector2(j + 1.5, i + 0.5));
 						SetDirection(Vector2(0, -1));
 					}
 					else if (grid[i - 1][j] == 0)
 					{
-						SetPosition(Vector2(j, i - 1));
+						SetPosition(Vector2(j + 0.5, i - 0.5));
 						SetDirection(Vector2(1, 0));
 					}
 					else if (grid[i][j - 1] == 0)
 					{
-						SetPosition(Vector2(j - 1, i));
+						SetPosition(Vector2(j - 0.5, i + 0.5));
 						SetDirection(Vector2(0, 1));
 					}
+					return;
 				}
 			}
 		}

@@ -44,7 +44,7 @@ void Game::ToggleMenu()
 {
 	//화면 지우기
 	system("cls");
-	
+	SetConsoleScreenSizeInit();
 	// 값 뒤집기
 	showMenu = !showMenu;
 

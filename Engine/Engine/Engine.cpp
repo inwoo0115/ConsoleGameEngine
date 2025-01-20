@@ -200,6 +200,18 @@ void Engine::SetConsoleFontSize(int fontSizeX, int fontSizeY) {
 	SetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
 }
 
+void Engine::SetConsoleScreenSizeInit()
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	// 콘솔 창 크기 최소화 (충돌 방지)
+	SMALL_RECT tempWindow = { 0, 0, 1, 1 };
+	if (!SetConsoleWindowInfo(hConsole, TRUE, &tempWindow)) {
+		std::cerr << "Error: Unable to minimize console window size." << std::endl;
+		return;
+	}
+}
+
 void Engine::SetConsoleScreenSize(int width, int height)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);

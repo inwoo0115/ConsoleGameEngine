@@ -51,9 +51,9 @@ void MenuLevel::Draw()
 	//메뉴 제목 출력
 	
 
-	// 글씨 크기 설정 TODO: 어떻게 하지...
-	//Game::Get().SetConsoleFontSize(16, 24);
-	//Game::Get().SetConsoleScreenSize(32, 34);
+	// 글씨 크기 설정
+	Game::Get().SetConsoleFontSize(32, 24);
+	Game::Get().SetConsoleScreenSize(60, 20);
 
 	Game::Get().SetCursorPosition(Vector2(0, 0));
 	Game::Get().SetConsoleTextColor(unselectedColor);

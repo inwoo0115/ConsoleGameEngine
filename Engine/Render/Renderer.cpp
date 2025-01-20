@@ -213,6 +213,11 @@ void Renderer::DrawInfo()
 		memset(buffer[i + heightInt] + time, ' ', widthInt - time + 1);
 		Log(buffer[i + heightInt]);
 	}
+	for (int i = 10; i < 12; ++i)
+	{
+		memset(buffer[i + heightInt], ' ', time);
+		Log(buffer[i + heightInt]);
+	}
 }
 
 void Renderer::SetPosition(const Vector2& newPosition)

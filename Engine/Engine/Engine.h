@@ -41,6 +41,7 @@ public:
 	void SetCursorPosition(double x, double y);
 	void SetConsoleTextColor(int color);
 	void SetConsoleFontSize(int fontSizeX, int fontSizeY);
+	void SetConsoleScreenSizeInit();
 	void SetConsoleScreenSize(int width, int height);
 	//콘솔 색상 문자열 출력 함수
 	void SetConsoleEnableVTmode();
